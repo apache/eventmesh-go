@@ -187,28 +187,3 @@ func GetFullEvent() *ce.Event {
 	return &event
 }
 
-//func TestProducer_Publish_Broker(t *testing.T) {
-//	properties := make(map[string]string)
-//	properties["access_points"] = "127.0.0.1:9876"
-//	producer := NewProducer()
-//	producer.InitProducer(properties)
-//	producer.Start()
-//
-//	var wg sync.WaitGroup
-//	wg.Add(1)
-//	callback := &connector.SendCallback{
-//		OnSuccess: func(result *connector.SendResult) {
-//			require.True(t, result.Topic == "TopicTest")
-//			wg.Done()
-//		},
-//		OnError: func(result *connector.ErrorResult) {
-//			panic(result.Err)
-//		},
-//	}
-//
-//	err := producer.Publish(context.Background(), GetFullEvent(), callback)
-//	require.True(t, err == nil)
-//
-//	wg.Wait()
-//	producer.Shutdown()
-//}
