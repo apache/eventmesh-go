@@ -29,5 +29,5 @@ func (c *Retry) SetDelay(delay time.Duration) *Retry {
 }
 
 func (c *Retry) GetDelay() time.Duration {
-	return c.ExecuteTime.Sub(time.Now())
+	return time.Until(c.ExecuteTime)
 }
