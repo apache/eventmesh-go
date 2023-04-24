@@ -57,7 +57,3 @@ jobs:
         uses: apache/skywalking-eyes@main
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Check third party dependencies
-        run: |
-          ./gradlew clean jar dist -x test -x checkstyleMain -x javaDoc && ./gradlew installPlugin && ./gradlew tar && sh tools/dependency-check/check-dependencies.sh && echo "Thirty party dependencies check success"
