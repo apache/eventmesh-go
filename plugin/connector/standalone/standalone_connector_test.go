@@ -147,54 +147,7 @@ func TestConsumer_ManualAck(t *testing.T) {
 
 // TODO update later
 func TestConsumer_UpdateOffset(t *testing.T) {
-	//sum := atomic.NewInt64(0)
-	//ch := make(chan struct{})
-	//listener := connector.EventListener{
-	//	Consume: func(event *ce.Event, commitFunc connector.CommitFunc) error {
-	//		var data map[string]interface{}
-	//		event.DataAs(&data)
-	//		sum.Add(int64(data["val"].(float64)))
-	//		commitFunc(connector.CommitMessage)
-	//		ch <- struct{}{}
-	//		return nil
-	//	},
-	//}
-	//
-	//factory := &Factory{}
-	//err := factory.Setup(pluginName, &plugin.YamlNodeDecoder{
-	//	Node: &yaml.Node{},
-	//})
-	//assert.NoError(t, err)
-	//consumer, _ := factory.GetConsumer()
-	//consumer.Start()
-	//defer consumer.Shutdown()
-	//consumer.RegisterEventListener(&listener)
-	//event := getTestEvent()
-	//event.SetExtension("offset", "49")
-	//consumer.Subscribe(topicName)
-	//consumer.UpdateOffset(context.Background(), []*ce.Event{event})
-	//
-	//producer, _ := factory.GetProducer()
-	//producer.Start()
-	//defer producer.Shutdown()
-	//for i := 1; i <= 50; i++ {
-	//	err := producer.Publish(context.Background(), getTestEventOfData(map[string]interface{}{
-	//		"val": i,
-	//	}), getEmptyPublishCallback())
-	//
-	//	if err != nil {
-	//		t.Fail()
-	//		return
-	//	}
-	//}
-	//
-	//timer := time.NewTimer(3 * time.Second)
-	//select {
-	//case <-timer.C:
-	//	t.Fail()
-	//case <-ch:
-	//	assert.Equal(t, int64(50), sum.Load())
-	//}
+
 }
 
 func getTestEvent(topicName string) *ce.Event {
