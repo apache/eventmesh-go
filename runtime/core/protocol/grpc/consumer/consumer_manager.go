@@ -171,7 +171,7 @@ func (c *consumerManager) clientCheck() {
 				localClients := value.(*set.Set)
 				for iter := localClients.Begin(); iter.IsValid(); iter.Next() {
 					lc := iter.Value().(*GroupClient)
-					if time.Now().Sub(lc.LastUPTime) > sessionExpiredInMills {
+					if time.Since(lc.LastUPTime) > sessionExpiredInMills {
 						log.Warnf("client:%v lastUpdate time:%v over three heartbeat cycles. Removing it",
 							lc.ConsumerGroup, lc.LastUPTime)
 						emconsumer, err := c.GetConsumer(lc.ConsumerGroup)
