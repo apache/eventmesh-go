@@ -93,31 +93,6 @@ func TestConsumer_Subscribe(t *testing.T) {
 	consumer.Shutdown()
 }
 
-//func TestConsumer_Subscribe_Broker(t *testing.T) {
-//	properties := make(map[string]string)
-//	properties["access_points"] = "127.0.0.1:9876"
-//	properties["consumer_group"] = "test_group"
-//	consumer := NewConsumer()
-//	consumer.InitConsumer(properties)
-//	consumer.Start()
-//
-//	listener := &connector.EventListener{
-//		Consume: func(event *ce.Event, commitFunc connector.CommitFunc) error {
-//			fmt.Println(event)
-//			commitFunc(connector.CommitMessage)
-//			return nil
-//		},
-//	}
-//
-//	consumer.RegisterEventListener(listener)
-//	err := consumer.Subscribe("TopicTest")
-//	if err != nil {
-//		panic(err)
-//	}
-//
-//	time.Sleep(100 * time.Second)
-//}
-
 func GetFullMessage() *primitive.Message {
 	event := ce.NewEvent()
 	event.SetSubject("TopicTest")
