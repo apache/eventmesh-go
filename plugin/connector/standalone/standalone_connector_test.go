@@ -147,6 +147,7 @@ func TestConsumer_ManualAck(t *testing.T) {
 
 // TODO update later
 func TestConsumer_UpdateOffset(t *testing.T) {
+
 }
 
 func getTestEvent(topicName string) *ce.Event {
