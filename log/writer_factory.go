@@ -46,7 +46,7 @@ type ConsoleWriterFactory struct {
 }
 
 // Setup starts, loads and registers console output writer.
-func (f *ConsoleWriterFactory) Setup(name string, dec plugin.Decoder) error {
+func (f *ConsoleWriterFactory) Setup(_ string, dec plugin.Decoder) error {
 	if dec == nil {
 		return errors.New("console writer decoder empty")
 	}
@@ -77,7 +77,7 @@ func (f *ConsoleWriterFactory) Type() string {
 }
 
 // Setup starts, loads and register file output writer.
-func (f *FileWriterFactory) Setup(name string, dec plugin.Decoder) error {
+func (f *FileWriterFactory) Setup(_ string, dec plugin.Decoder) error {
 	if dec == nil {
 		return errors.New("file writer decoder empty")
 	}
@@ -85,10 +85,7 @@ func (f *FileWriterFactory) Setup(name string, dec plugin.Decoder) error {
 	if !ok {
 		return errors.New("file writer log decoder type invalid")
 	}
-	if err := f.setupConfig(decoder); err != nil {
-		return err
-	}
-	return nil
+	return f.setupConfig(decoder)
 }
 
 func (f *FileWriterFactory) setupConfig(decoder *Decoder) error {
