@@ -54,7 +54,11 @@ func (h *HTTPServer) Serve() error {
 			return err
 		}
 	}
-	return h.router.Run(h.httpOption.Port)
+	addr := ""
+	if len(h.httpOption.Port) != 0 {
+		addr = ":" + h.httpOption.Port
+	}
+	return h.router.Run(addr)
 }
 
 func (h *HTTPServer) Stop() error {
