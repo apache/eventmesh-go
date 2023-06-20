@@ -50,15 +50,15 @@ func (r *RocketMQMessageReader) ReadEncoding() binding.Encoding {
 }
 
 // ReadBinary read message and write through encoder
-func (r *RocketMQMessageReader) ReadBinary(ctx context.Context, encoder binding.BinaryWriter) (err error) {
+func (r *RocketMQMessageReader) ReadBinary(_ context.Context, encoder binding.BinaryWriter) (err error) {
 	subject := r.version.Attribute("subject")
-	encoder.SetAttribute(subject, r.topic)
+	_ = encoder.SetAttribute(subject, r.topic)
 
 	msgType := r.version.Attribute("type")
-	encoder.SetAttribute(msgType, constants.CloudEventMessageType)
+	_ = encoder.SetAttribute(msgType, constants.CloudEventMessageType)
 
 	contentType := r.version.Attribute("datacontenttype")
-	encoder.SetAttribute(contentType, r.properties[constants.RocketMQMessageContentTypeProperties])
+	_ = encoder.SetAttribute(contentType, r.properties[constants.RocketMQMessageContentTypeProperties])
 
 	for k, v := range r.properties {
 		attr := r.version.Attribute(k)
