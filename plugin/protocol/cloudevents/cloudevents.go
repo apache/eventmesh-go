@@ -47,12 +47,12 @@ func (c *CloudeventsPlugin) Setup(name string, dec plugin.Decoder) error {
 }
 
 func (c *CloudeventsPlugin) ToCloudEvent(msg interface{}) (*v2.Event, error) {
-	switch msg.(type) {
+	switch msg := msg.(type) {
 	case *tcp.Package:
-		pck := msg.(*tcp.Package)
+		pck := msg
 		return c.deserializeTcpProtocol(pck)
 	case *grpc.SimpleMessageWrapper:
-		sw := msg.(*grpc.SimpleMessageWrapper)
+		sw := msg
 		sm := sw.SimpleMessage
 		return deserializeGrpcProtocol(sm)
 	}
