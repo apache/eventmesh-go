@@ -99,12 +99,12 @@ func (p *processor) AsyncMessage(ctx context.Context, producerMgr ProducerManage
 			OnSuccess: func(result *connector.SendResult) {
 				code = grpc.SUCCESS
 				log.Infof("message|eventMesh2mq|REQ|ASYNC|send2MQCost=%vms|topic=%v|bizSeqNo=%v|uniqueId=%v",
-					time.Now().Sub(start).Milliseconds(), topic, seqNum, uid)
+					time.Since(start).Milliseconds(), topic, seqNum, uid)
 			},
 			OnError: func(result *connector.ErrorResult) {
 				code = grpc.EVENTMESH_SEND_ASYNC_MSG_ERR
 				log.Errorf("message|eventMesh2mq|REQ|ASYNC|send2MQCost=%vms|topic=%v|bizSeqNo=%v|uniqueId=%v, err:%v",
-					time.Now().Sub(start).Milliseconds(), topic, seqNum, uid, result.Err)
+					time.Since(start).Milliseconds(), topic, seqNum, uid, result.Err)
 			},
 		},
 	); err != nil {
@@ -162,12 +162,12 @@ func (p *processor) ReplyMessage(ctx context.Context, producerMgr ProducerManage
 		&connector.SendCallback{
 			OnSuccess: func(result *connector.SendResult) {
 				log.Infof("message|mq2eventmesh|REPLY|ReplyToServer|send2MQCost=%vms|topic=%v|bizSeqNo=%v|uniqueId=%v",
-					time.Now().Sub(start).Milliseconds(), replyTopic, seqNum, uniqID)
+					time.Since(start).Milliseconds(), replyTopic, seqNum, uniqID)
 			},
 			OnError: func(result *connector.ErrorResult) {
 				emiter.SendStreamResp(hdr, grpc.EVENTMESH_REPLY_MSG_ERR)
 				log.Errorf("message|mq2eventmesh|REPLY|ReplyToServer|send2MQCost=%vms|topic=%v|bizSeqNo=%v|uniqueId=%v",
-					time.Now().Sub(start).Milliseconds(), replyTopic, seqNum, uniqID, result.Err)
+					time.Since(start).Milliseconds(), replyTopic, seqNum, uniqID, result.Err)
 			},
 		},
 	)
@@ -220,7 +220,7 @@ func (p *processor) RequestReplyMessage(ctx context.Context, producerMgr Produce
 		&connector.RequestReplyCallback{
 			OnSuccess: func(event *ce.Event) {
 				log.Infof("message|eventmesh2client|REPLY|RequestReply|send2MQCost=%vms|topic=%v|bizSeqNo=%v|uniqueId=%v",
-					time.Now().Sub(start).Milliseconds(), topic, seqNum, unidID)
+					time.Since(start).Milliseconds(), topic, seqNum, unidID)
 
 				m1, err1 := adp.FromCloudEvent(event)
 				if err1 != nil {
@@ -232,7 +232,7 @@ func (p *processor) RequestReplyMessage(ctx context.Context, producerMgr Produce
 			},
 			OnError: func(result *connector.ErrorResult) {
 				log.Errorf("message|mq2eventmesh|REPLY|RequestReply|send2MQCost=%vms|topic=%v|bizSeqNo=%v|uniqueId=%v|err=%v",
-					time.Now().Sub(start).Milliseconds(), topic, seqNum, unidID, err)
+					time.Since(start).Milliseconds(), topic, seqNum, unidID, err)
 				err = grpc.EVENTMESH_REQUEST_REPLY_MSG_ERR.ToError()
 			},
 		},
@@ -289,11 +289,11 @@ func (p *processor) BatchPublish(ctx context.Context, producerMgr ProducerManage
 			&connector.SendCallback{
 				OnSuccess: func(result *connector.SendResult) {
 					log.Infof("message|eventMesh2mq|REQ|BatchSend|send2MQCost=%vms|topic=%v|bizSeqNo=%v|uniqueId=%v",
-						time.Now().Sub(start).Milliseconds(), topic, seqNum, uid)
+						time.Since(start).Milliseconds(), topic, seqNum, uid)
 				},
 				OnError: func(result *connector.ErrorResult) {
 					log.Errorf("message|eventMesh2mq|REQ|BatchSend|send2MQCost=%vms|topic=%v|bizSeqNo=%v|uniqueId=%v, err:%v",
-						time.Now().Sub(start).Milliseconds(), topic, seqNum, uid, result.Err)
+						time.Since(start).Milliseconds(), topic, seqNum, uid, result.Err)
 				},
 			},
 		)
