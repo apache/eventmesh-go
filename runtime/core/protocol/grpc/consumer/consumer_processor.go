@@ -290,12 +290,12 @@ func (p *processor) ReplyMessage(ctx context.Context, producerMgr producer.Produ
 		&connector.SendCallback{
 			OnSuccess: func(result *connector.SendResult) {
 				log.Infof("message|mq2eventmesh|REPLY|ReplyToServer|send2MQCost=%vms|topic=%v|bizSeqNo=%v|uniqueId=%v",
-					time.Now().Sub(start).Milliseconds(), replyTopic, seqNum, uniqID)
+					time.Since(start).Milliseconds(), replyTopic, seqNum, uniqID)
 			},
 			OnError: func(result *connector.ErrorResult) {
 				emiter.SendStreamResp(hdr, grpc.EVENTMESH_REPLY_MSG_ERR)
 				log.Errorf("message|mq2eventmesh|REPLY|ReplyToServer|send2MQCost=%vms|topic=%v|bizSeqNo=%v|uniqueId=%v",
-					time.Now().Sub(start).Milliseconds(), replyTopic, seqNum, uniqID, result.Err)
+					time.Since(start).Milliseconds(), replyTopic, seqNum, uniqID, result.Err)
 			},
 		},
 	)
