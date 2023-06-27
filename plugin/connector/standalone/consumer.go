@@ -120,7 +120,7 @@ func (c *Consumer) Start() error {
 func (c *Consumer) Shutdown() error {
 	c.started.CAS(true, false)
 	if ok := c.started.CAS(true, false); ok {
-		for topicName, _ := range c.subscribes {
+		for topicName := range c.subscribes {
 			c.Unsubscribe(topicName)
 			delete(c.subscribes, topicName)
 		}
